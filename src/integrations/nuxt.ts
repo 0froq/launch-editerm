@@ -1,17 +1,17 @@
-import type { LaunchEditermOptions } from '../types.js'
+import type { LaunchEditorTermOptions } from '../types.js'
 import { defineNuxtModule } from '@nuxt/kit'
 import { resolveBinPath } from '../bin-path.js'
 import { mergeConfig } from '../config/merge.js'
 
-export interface LaunchEditermNuxtOptions extends LaunchEditermOptions {}
+export interface LaunchEditorTermNuxtOptions extends LaunchEditorTermOptions {}
 
-export default defineNuxtModule<LaunchEditermNuxtOptions>({
+export default defineNuxtModule<LaunchEditorTermNuxtOptions>({
   meta: {
-    name: 'launch-editerm',
-    configKey: 'launchEditerm',
+    name: 'launch-editor-term',
+    configKey: 'launchEditorTerm',
   },
   defaults: {},
-  setup(options: LaunchEditermNuxtOptions, nuxt: { options: { dev: boolean }, hook: (name: string, fn: () => void) => void }) {
+  setup(options: LaunchEditorTermNuxtOptions, nuxt: { options: { dev: boolean }, hook: (name: string, fn: () => void) => void }) {
     if (!nuxt.options.dev)
       return
 
@@ -20,11 +20,11 @@ export default defineNuxtModule<LaunchEditermNuxtOptions>({
       process.env.LAUNCH_EDITOR = bin
       const merged = mergeConfig({}, options, process.env)
       if (merged.editor)
-        process.env.EDITERM_EDITOR = merged.editor
+        process.env.LAUNCH_EDITOR_TERM_EDITOR = merged.editor
       if (merged.target)
-        process.env.EDITERM_TARGET = merged.target
+        process.env.LAUNCH_EDITOR_TERM_TARGET = merged.target
       if (merged.backend)
-        process.env.EDITERM_BACKEND = merged.backend
+        process.env.LAUNCH_EDITOR_TERM_BACKEND = merged.backend
     })
   },
 })

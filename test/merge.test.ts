@@ -13,7 +13,7 @@ describe('config precedence', () => {
     const r = mergeConfig(
       { editor: 'vim', target: 'tab', backend: 'tmux' },
       { editor: 'helix', target: 'float' },
-      { EDITERM_EDITOR: 'emacs', EDITERM_TARGET: 'split-right', EDITERM_BACKEND: 'kitty' },
+      { LAUNCH_EDITOR_TERM_EDITOR: 'emacs', LAUNCH_EDITOR_TERM_TARGET: 'split-right', LAUNCH_EDITOR_TERM_BACKEND: 'kitty' },
     )
     expect(r.editor).toBe('emacs')
     expect(r.target).toBe('split-right')
@@ -21,7 +21,7 @@ describe('config precedence', () => {
   })
 
   it('parses custom backend args from env', () => {
-    const r = mergeConfig({}, undefined, { EDITERM_CUSTOM_BACKEND_ARGS: 'tmux display-popup -E {cmd}' })
+    const r = mergeConfig({}, undefined, { LAUNCH_EDITOR_TERM_CUSTOM_BACKEND_ARGS: 'tmux display-popup -E {cmd}' })
     expect(r.customBackendArgs).toEqual(['tmux', 'display-popup', '-E', '{cmd}'])
   })
 })

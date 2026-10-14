@@ -50,7 +50,7 @@ export interface LaunchPlan {
  */
 export type OnCloseHook = (ctx: { file: string, line: number, column: number }) => void | Promise<void>
 
-export interface LaunchEditermOptions {
+export interface LaunchEditorTermOptions {
   editor?: EditorKind
   target?: TargetKind
   backend?: BackendKind

@@ -1,14 +1,14 @@
 import type { Plugin } from 'vite'
-import type { LaunchEditermOptions } from '../types.js'
+import type { LaunchEditorTermOptions } from '../types.js'
 import { resolveBinPath } from '../bin-path.js'
 import { mergeConfig } from '../config/merge.js'
 
-export interface LaunchEditermViteOptions extends LaunchEditermOptions {}
+export interface LaunchEditorTermViteOptions extends LaunchEditorTermOptions {}
 
-export function launchEditerm(options: LaunchEditermViteOptions = {}): Plugin {
+export function launchEditorTerm(options: LaunchEditorTermViteOptions = {}): Plugin {
   let previousLaunchEditor: string | undefined
   return {
-    name: 'launch-editerm',
+    name: 'launch-editor-term',
     apply: 'serve',
     config() {
       return {}
@@ -19,11 +19,11 @@ export function launchEditerm(options: LaunchEditermViteOptions = {}): Plugin {
       process.env.LAUNCH_EDITOR = bin
       const merged = mergeConfig({}, options, process.env)
       if (merged.editor)
-        process.env.EDITERM_EDITOR = merged.editor
+        process.env.LAUNCH_EDITOR_TERM_EDITOR = merged.editor
       if (merged.target)
-        process.env.EDITERM_TARGET = merged.target
+        process.env.LAUNCH_EDITOR_TERM_TARGET = merged.target
       if (merged.backend)
-        process.env.EDITERM_BACKEND = merged.backend
+        process.env.LAUNCH_EDITOR_TERM_BACKEND = merged.backend
       return () => {
         if (previousLaunchEditor !== undefined)
           process.env.LAUNCH_EDITOR = previousLaunchEditor
@@ -34,4 +34,4 @@ export function launchEditerm(options: LaunchEditermViteOptions = {}): Plugin {
   }
 }
 
-export default launchEditerm
+export default launchEditorTerm

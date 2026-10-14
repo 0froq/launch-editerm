@@ -1,4 +1,4 @@
-import type { FilePosition, LaunchEditermOptions } from './types.js'
+import type { FilePosition, LaunchEditorTermOptions } from './types.js'
 import { loadResolvedConfig } from './config/load.js'
 import { runLaunchPlan } from './execute.js'
 import { createLaunchPlan } from './plan.js'
@@ -7,7 +7,7 @@ export interface LaunchArgs {
   file: string
   line?: number
   column?: number
-  options?: LaunchEditermOptions
+  options?: LaunchEditorTermOptions
   dryRun?: boolean
 }
 

@@ -1,4 +1,4 @@
-# launch-editerm
+# launch-editor-term
 
 Open files from frontend devtools ([`launch-editor`](https://github.com/vitejs/launch-editor), used by Vite, Nuxt DevTools, Vue DevTools) in a **terminal editor** without stealing the dev server's TTY.
 
@@ -8,19 +8,19 @@ Open files from frontend devtools ([`launch-editor`](https://github.com/vitejs/l
 <cmd> <file> <line> <column>
 ```
 
-By default that often means `vim` with `stdio: 'inherit'` inside the dev server process — which breaks terminal state ([vitejs/launch-editor#39](https://github.com/vitejs/launch-editor/issues/39), [#49](https://github.com/vitejs/launch-editor/issues/49)). **launch-editerm** spawns the editor in a separate terminal surface (tmux pane, new Kitty tab, macOS Terminal window, etc.) or forwards to an existing Neovim/Vim server.
+By default that often means `vim` with `stdio: 'inherit'` inside the dev server process — which breaks terminal state ([vitejs/launch-editor#39](https://github.com/vitejs/launch-editor/issues/39), [#49](https://github.com/vitejs/launch-editor/issues/49)). **launch-editor-term** spawns the editor in a separate terminal surface (tmux pane, new Kitty tab, macOS Terminal window, etc.) or forwards to an existing Neovim/Vim server.
 
 > **Prototype notice:** Logic is covered by unit tests on Linux CI. This has **not** been exercised on a real macOS machine yet (iTerm2 / Terminal.app / Ghostty paths are best-effort).
 
 ## Quick start (global)
 
 ```bash
-pnpm add -g launch-editerm   # or npm i -g (not published yet — install from git)
-export LAUNCH_EDITOR=launch-editerm
+pnpm add -g launch-editor-term   # or npm i -g (not published yet — install from git)
+export LAUNCH_EDITOR=launch-editor-term
 pnpm dev
 ```
 
-Optional config file: `~/.config/launch-editerm/config.toml` (or `$XDG_CONFIG_HOME/launch-editerm/config.toml`):
+Optional config file: `~/.config/launch-editor-term/config.toml` (or `$XDG_CONFIG_HOME/launch-editor-term/config.toml`):
 
 ```toml
 editor = "nvim"
@@ -28,7 +28,7 @@ target = "split-right"
 backend = "auto"
 ```
 
-Environment overrides (highest precedence): `EDITERM_EDITOR`, `EDITERM_TARGET`, `EDITERM_BACKEND`, `EDITERM_NVIM_SOCKET`, `EDITERM_EDITOR_PATH`, `EDITERM_TERMINAL`, `EDITERM_CUSTOM_BACKEND_ARGS`.
+Environment overrides (highest precedence): `LAUNCH_EDITOR_TERM_EDITOR`, `LAUNCH_EDITOR_TERM_TARGET`, `LAUNCH_EDITOR_TERM_BACKEND`, `LAUNCH_EDITOR_TERM_NVIM_SOCKET`, `LAUNCH_EDITOR_TERM_EDITOR_PATH`, `LAUNCH_EDITOR_TERM_TERMINAL`, `LAUNCH_EDITOR_TERM_CUSTOM_BACKEND_ARGS`.
 
 ## nvim + tmux (recommended on macOS/Linux)
 
@@ -49,7 +49,7 @@ target = "split-right"
 If `$NVIM` points at a running Neovim, the tool **forwards remotely** and skips opening a new tmux pane.
 
 ```bash
-launch-editerm --dry-run /path/to/file.ts 42 3
+launch-editor-term --dry-run /path/to/file.ts 42 3
 ```
 
 ## nvim + Zellij (floating pane)
@@ -97,11 +97,11 @@ When not inside tmux/Zellij and `TERM_PROGRAM` is unknown on macOS, `backend = "
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
-import launchEditerm from 'launch-editerm/vite'
+import launchEditorTerm from 'launch-editor-term/vite'
 
 export default defineConfig({
   plugins: [
-    launchEditerm({
+    launchEditorTerm({
       editor: 'nvim',
       target: 'split-right',
       backend: 'auto',
@@ -117,8 +117,8 @@ Sets `process.env.LAUNCH_EDITOR` to this package's CLI **only during `vite dev`*
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['launch-editerm/nuxt'],
-  launchEditerm: {
+  modules: ['launch-editor-term/nuxt'],
+  launchEditorTerm: {
     editor: 'nvim',
     target: 'window',
   },

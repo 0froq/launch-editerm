@@ -4,7 +4,7 @@ export function logOnce(key: string, message: string): void {
   if (onceKeys.has(key))
     return
   onceKeys.add(key)
-  console.warn(`[launch-editerm] ${message}`)
+  console.warn(`[launch-editor-term] ${message}`)
 }
 
 export function resetLogOnce(): void {
