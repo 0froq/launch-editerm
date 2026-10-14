@@ -12,7 +12,7 @@ function parseArgs(argv: string[]) {
   }
   const [file, line, column] = rest
   if (!file) {
-    console.error('Usage: launch-editerm [--dry-run] <file> [line] [column]')
+    console.error('Usage: launch-editor-term [--dry-run] <file> [line] [column]')
     process.exit(1)
   }
   return {
