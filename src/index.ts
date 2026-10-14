@@ -14,7 +14,7 @@ export type {
   BackendKind,
   EditorKind,
   FilePosition,
-  LaunchEditermOptions,
+  LaunchEditorTermOptions,
   LaunchPlan,
   OnCloseHook,
   ResolvedConfig,

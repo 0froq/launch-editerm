@@ -1,4 +1,4 @@
-import type { BackendKind, EditorKind, LaunchEditermOptions, ResolvedConfig, TargetKind } from '../types.js'
+import type { BackendKind, EditorKind, LaunchEditorTermOptions, ResolvedConfig, TargetKind } from '../types.js'
 
 const EDITORS: EditorKind[] = ['nvim', 'vim', 'helix', 'emacs']
 const TARGETS: TargetKind[] = ['window', 'tab', 'split-right', 'split-down', 'float']
@@ -46,7 +46,7 @@ export interface TomlConfigShape {
 
 export function mergeConfig(
   toml: TomlConfigShape,
-  inline: LaunchEditermOptions | undefined,
+  inline: LaunchEditorTermOptions | undefined,
   env: NodeJS.ProcessEnv,
 ): Omit<ResolvedConfig, 'dryRun'> {
   let editor = parseEditor(toml.editor) ?? 'nvim'
@@ -72,29 +72,29 @@ export function mergeConfig(
   if (inline?.customBackendArgs)
     customBackendArgs = inline.customBackendArgs
 
-  if (env.EDITERM_EDITOR) {
-    const e = parseEditor(env.EDITERM_EDITOR)
+  if (env.LAUNCH_EDITOR_TERM_EDITOR) {
+    const e = parseEditor(env.LAUNCH_EDITOR_TERM_EDITOR)
     if (e)
       editor = e
   }
-  if (env.EDITERM_TARGET) {
-    const t = parseTarget(env.EDITERM_TARGET)
+  if (env.LAUNCH_EDITOR_TERM_TARGET) {
+    const t = parseTarget(env.LAUNCH_EDITOR_TERM_TARGET)
     if (t)
       target = t
   }
-  if (env.EDITERM_BACKEND) {
-    const b = parseBackend(env.EDITERM_BACKEND)
+  if (env.LAUNCH_EDITOR_TERM_BACKEND) {
+    const b = parseBackend(env.LAUNCH_EDITOR_TERM_BACKEND)
     if (b)
       backend = b
   }
-  if (env.EDITERM_NVIM_SOCKET)
-    nvimSocketPath = env.EDITERM_NVIM_SOCKET
-  if (env.EDITERM_EDITOR_PATH)
-    editorPath = env.EDITERM_EDITOR_PATH
-  if (env.EDITERM_TERMINAL)
-    terminalProgram = env.EDITERM_TERMINAL
-  if (env.EDITERM_CUSTOM_BACKEND_ARGS)
-    customBackendArgs = env.EDITERM_CUSTOM_BACKEND_ARGS.split(/\s+/).filter(Boolean)
+  if (env.LAUNCH_EDITOR_TERM_NVIM_SOCKET)
+    nvimSocketPath = env.LAUNCH_EDITOR_TERM_NVIM_SOCKET
+  if (env.LAUNCH_EDITOR_TERM_EDITOR_PATH)
+    editorPath = env.LAUNCH_EDITOR_TERM_EDITOR_PATH
+  if (env.LAUNCH_EDITOR_TERM_TERMINAL)
+    terminalProgram = env.LAUNCH_EDITOR_TERM_TERMINAL
+  if (env.LAUNCH_EDITOR_TERM_CUSTOM_BACKEND_ARGS)
+    customBackendArgs = env.LAUNCH_EDITOR_TERM_CUSTOM_BACKEND_ARGS.split(/\s+/).filter(Boolean)
 
   return {
     editor,
