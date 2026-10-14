@@ -1,5 +1,7 @@
 # launch-editor-term
 
+> **Repo:** [github.com/0froq/launch-editor-term](https://github.com/0froq/launch-editor-term) — if the URL 404s, rename `launch-editerm` → `launch-editor-term` in GitHub **Settings → General** (GitHub redirects the old name after rename).
+
 Open files from frontend devtools ([`launch-editor`](https://github.com/vitejs/launch-editor), used by Vite, Nuxt DevTools, Vue DevTools) in a **terminal editor** without stealing the dev server's TTY.
 
 `launch-editor` runs `LAUNCH_EDITOR` as:
