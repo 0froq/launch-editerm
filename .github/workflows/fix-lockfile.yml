@@ -1,0 +1,42 @@
+name: Fix lockfile
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check pnpm-lock.yaml
+        id: lock
+        run: |
+          if head -1 pnpm-lock.yaml | grep -q '^lockfileVersion:'; then
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "valid=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: pnpm/action-setup@v4
+        if: steps.lock.outputs.valid == 'false'
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        if: steps.lock.outputs.valid == 'false'
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Regenerate pnpm-lock.yaml
+        if: steps.lock.outputs.valid == 'false'
+        run: pnpm install
+      - name: Commit lockfile
+        if: steps.lock.outputs.valid == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml
+          git diff --staged --quiet || git commit -m "fix: restore real pnpm-lock.yaml"
+          git push
