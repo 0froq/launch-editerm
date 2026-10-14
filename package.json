@@ -2,8 +2,13 @@
   "name": "launch-editor-term",
   "type": "module",
   "version": "0.1.0",
+  "packageManager": "pnpm@9.15.9",
   "description": "Open devtools file links in a terminal editor without hijacking the dev server TTY",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0froq/launch-editor-term.git"
+  },
   "exports": {
     ".": "./dist/index.js",
     "./vite": "./dist/integrations/vite.js",
