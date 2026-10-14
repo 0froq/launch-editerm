@@ -1,5 +1,5 @@
 {
-  "name": "launch-editerm",
+  "name": "launch-editor-term",
   "type": "module",
   "version": "0.1.0",
   "description": "Open devtools file links in a terminal editor without hijacking the dev server TTY",
@@ -10,7 +10,7 @@
     "./nuxt": "./dist/integrations/nuxt.js"
   },
   "bin": {
-    "launch-editerm": "./dist/cli.js"
+    "launch-editor-term": "./dist/cli.js"
   },
   "files": [
     "dist"
